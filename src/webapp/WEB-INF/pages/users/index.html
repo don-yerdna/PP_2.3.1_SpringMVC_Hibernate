@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users List</title>
+    <style>table th, table td {
+        padding: 5px;
+    }</style>
+</head>
+<body>
+
+<table border="1">
+    <tr>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    <tr th:each="user :${users}">
+        <td th:utext="${user.getFirstName()}">VALUE</td>
+        <td th:utext="${user.getLastName()}">VALUE</td>
+        <td th:utext="${user.getEmail()}">VALUE</td>
+        <td th:utext="${user.getAge()}">VALUE</td>
+        <td></td>
+        <td></td>
+    </tr>
+
+</table>
+<div th:each="i : ${#numbers.sequence( 1, count/1)}">
+    <a th:href="@{/(count=${i})}"><span th:text="${i}"/></a>
+</div>
+</body>
+</html>
