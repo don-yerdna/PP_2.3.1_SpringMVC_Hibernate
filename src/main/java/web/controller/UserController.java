@@ -46,4 +46,10 @@ public class UserController {
         userService.saveUser(user);
         return "redirect:/";
     }
+
+    @RequestMapping("/remove")
+    public String removeUser(@RequestParam(value = "id", required = true) Long id) {
+        userService.removeUserById(id);
+        return "redirect:/";
+    }
 }

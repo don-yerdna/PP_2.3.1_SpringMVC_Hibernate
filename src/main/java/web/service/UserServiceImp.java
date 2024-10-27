@@ -34,12 +34,16 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void saveUser(User user) {
-
         userDAO.saveUser(user);
     }
 
     @Override
     public User getUserById(Long id) {
         return userDAO.getUserById(id);
+    }
+
+    @Override
+    public void removeUserById(Long id) {
+        userDAO.removeUserById(id);
     }
 }
