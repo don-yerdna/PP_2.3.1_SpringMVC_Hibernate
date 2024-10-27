@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import web.model.User;
@@ -12,7 +12,6 @@ import web.service.UserService;
 
 
 @Controller
-@RequestMapping()
 public class UserController {
     private final UserService userService;
 
@@ -21,25 +20,30 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
-    public String listCars(@RequestParam(value = "count", defaultValue = "5") int count, Model model) {
+    @RequestMapping("/")
+    public String listUsers(@RequestParam(value = "count", defaultValue = "10") int count, Model model) {
         model.addAttribute("users", userService.getUsersOfCount(count));
         model.addAttribute("count", userService.getCountUsers());
         return "users/users";
     }
 
-    @GetMapping("/edit")
-    public String editUser(@RequestParam(value = "id") Long id, Model model) {
-        System.out.println(id);
-        User user = userService.getUserById(id);
-        System.out.println(user.toString());
-
+    @RequestMapping("/add")
+    public String addUser(Model model) {
+        User user = new User();
         model.addAttribute("user",user);
-        return "users/edit";
+        return "users/user-info";
     }
-//    @PostMapping("user-modify")
-//    public String updateUser(@RequestParam(value = "id") Long id, Model model) {
-//        User user = userService.getUserById(id);
-//        System.out.println(user.toString());
-//    }
+
+    @RequestMapping("/edit")
+    public String editUser(@RequestParam(value = "id", required = true) Long id, Model model) {
+        User user = userService.getUserById(id);
+        model.addAttribute("user",user);
+        return "users/user-info";
+    }
+
+    @RequestMapping("/save")
+    public String saveUser(@ModelAttribute("user") User user) {
+        userService.saveUser(user);
+        return "redirect:/";
+    }
 }

@@ -15,38 +15,28 @@
 
     <table border="1">
         <tr>
-<!--            <th></th>-->
             <th>Имя</th>
             <th>Фамилия</th>
             <th>E-mail</th>
             <th>Возраст</th>
             <th></th>
-            <th></th>
         </tr>
 
         <tr th:each="user :${users}">
-<!--            <td class="checkbox"><input type="checkbox" name="id" value="${user.getId()}"></td>-->
             <td th:utext="${user.getFirstName()}">VALUE</td>
             <td th:utext="${user.getLastName()}">VALUE</td>
             <td th:utext="${user.getEmail()}">VALUE</td>
             <td th:utext="${user.getAge()}">VALUE</td>
-            <td><a href="#" th:href="@{/edit?id={id}(id=${user.getId()})}" >Редактировать</a> </td>
-            <td><a href="#" th:href="@{/remove/{id}(id=${user.getId()})}">Удалить</a></td>
+            <td>
+                <input th:attr="onclick='window.location.href = \'' + @{/edit?id={id}(id=${user.getId()})} + '\''" type="button" value="Редактировать" >
+                <input th:attr="onclick='window.location.href = \'' + @{/remove?id={id}(id=${user.getId()})} + '\''" type="button" value="Удалить" >
+            </td>
         </tr>
 
     </table>
-    <h2>Создание</h2>
-
-    <a href="/add">Создать пользователя</a>
+   <br>
+    <input type="button" value="Добавить" onclick="window.location.href='/add'">
 </div>
-<!--<form id="createUserForm" action="/user-create" method="get">-->
-<!--</form>-->
-<!--<form id="deleteUserForm" action="/user-remove" method="get">-->
-<!--    <input type="hidden" id="user_remove_text" name="id" value="">-->
-<!--</form>-->
-<!--<form id="modifyUserForm" action="/user-modify" method="get">-->
-<!--    <input type="hidden" id="student_check_text" name="id" value="">-->
-<!--</form>-->
 <div id="pagging">
     <span th:each="i : ${#numbers.sequence( 1, count/1)}">
         <a th:href="@{/(count=${i})}"><span th:text="${i}"/></a>

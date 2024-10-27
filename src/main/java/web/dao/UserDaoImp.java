@@ -43,7 +43,7 @@ public class UserDaoImp implements UserDao {
     public void saveUser(User user) {
 //        entityManager.getTransaction().begin();
 
-        entityManager.persist(user);
+        entityManager.merge(user);
 //        entityManager.getTransaction().commit();
     }
     @Transactional
