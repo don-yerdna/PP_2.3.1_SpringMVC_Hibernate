@@ -9,7 +9,6 @@
 </head>
 <body>
 <div id="table-users">
-    <a id="home" href="/">На главную</a>
     <h3>Список пользователей</h3>
 
 
@@ -36,11 +35,6 @@
     </table>
    <br>
     <input type="button" value="Добавить" onclick="window.location.href='/add'">
-</div>
-<div id="pagging">
-    <span th:each="i : ${#numbers.sequence( 1, count/1)}">
-        <a th:href="@{/(count=${i})}"><span th:text="${i}"/></a>
-    </span>
 </div>
 </body>
 </html>

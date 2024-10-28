@@ -21,9 +21,8 @@ public class UserController {
     }
 
     @RequestMapping("/")
-    public String listUsers(@RequestParam(value = "count", defaultValue = "10") int count, Model model) {
-        model.addAttribute("users", userService.getUsersOfCount(count));
-        model.addAttribute("count", userService.getCountUsers());
+    public String listUsers(Model model) {
+        model.addAttribute("users", userService.getAllUsers());
         return "users/users";
     }
 

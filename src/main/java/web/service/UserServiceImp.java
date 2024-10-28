@@ -2,6 +2,7 @@ package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
 import web.model.User;
 
@@ -20,28 +21,23 @@ public class UserServiceImp implements UserService {
         this.userDAO = userDAO;
     }
 
-
+    @Transactional(readOnly = true)
     @Override
-    public List<User> getUsersOfCount(int count) {
-        if (count == 0 || count > 5) return userDAO.getAllUsers();
-        return userDAO.getAllUsers().stream().limit(count).collect(Collectors.toList());
+    public List<User> getAllUsers() {
+        return userDAO.getAllUsers();
     }
-
-    @Override
-    public int getCountUsers() {
-        return userDAO.getCountUsers();
-    }
-
+    @Transactional
     @Override
     public void saveUser(User user) {
         userDAO.saveUser(user);
     }
-
+    @Transactional(readOnly = true)
     @Override
     public User getUserById(Long id) {
         return userDAO.getUserById(id);
     }
 
+    @Transactional
     @Override
     public void removeUserById(Long id) {
         userDAO.removeUserById(id);

@@ -26,7 +26,7 @@ public class UserDaoImp implements UserDao {
         this.sessionFactory = sessionFactory;
     }
 
-    @Transactional(readOnly = true)
+
     @Override
     public List<User> getAllUsers() {
         TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
@@ -34,17 +34,10 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public int getCountUsers() {
-        return getAllUsers().size();
-    }
-
-    @Transactional
-    @Override
     public void saveUser(User user) {
         entityManager.merge(user);
     }
 
-    @Transactional
     @Override
     public User getUserById(Long id) {
         return entityManager.find(User.class, id);
