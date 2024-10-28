@@ -58,8 +58,4 @@ public class HiberConfig {
         transactionManager.setSessionFactory(getSessionFactory().getObject());
         return transactionManager;
     }
-    public static EntityManager getEntityManager() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("web");
-        return emf.createEntityManager();
-    }
 }
