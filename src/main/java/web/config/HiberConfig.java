@@ -17,12 +17,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.sql.DataSource;
 import java.util.Properties;
+
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
 @ComponentScan("web")
 public class HiberConfig {
     private Environment env;
+
     @Autowired
     public HiberConfig(Environment env) {
         this.env = env;

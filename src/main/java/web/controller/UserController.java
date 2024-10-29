@@ -29,20 +29,24 @@ public class UserController {
     @RequestMapping("/add")
     public String addUser(Model model) {
         User user = new User();
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "users/user-info";
     }
 
     @RequestMapping("/edit")
     public String editUser(@RequestParam(value = "id", required = true) Long id, Model model) {
         User user = userService.getUserById(id);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "users/user-info";
     }
 
     @RequestMapping("/save")
     public String saveUser(@ModelAttribute("user") User user) {
-        userService.saveUser(user);
+        if (user.getId()!=0) {
+            userService.updateUser(user);
+        } else {
+            userService.addUser(user);
+        }
         return "redirect:/";
     }
 
